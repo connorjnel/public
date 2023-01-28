@@ -1,4 +1,4 @@
-# Ignore existing theme - test
+# Ignore generic wp files and default theme
 wp-content/themes/twentytwentythree
 wp-admin/
 wp-includes/
