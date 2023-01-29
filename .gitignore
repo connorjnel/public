@@ -3,7 +3,7 @@ wp-content/themes/twentytwentythree
 wp-admin/
 wp-includes/
 .htaccess
-index.php
+/index.php
 license.txt
 local-xdebuginfo.php
 readme.html
