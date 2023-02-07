@@ -6,8 +6,8 @@ Version: 1.0
 
  */
 
-h2 {
-    color: deepskyblue;
+a {
+    text-decoration: none;
 }
 
 a:link {
