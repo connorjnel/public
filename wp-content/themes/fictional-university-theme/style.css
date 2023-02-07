@@ -5,15 +5,3 @@ Author: Connor J Nel
 Version: 1.0
 
  */
-
-a {
-    text-decoration: none;
-}
-
-a:link {
-    color: orangered;
-}
-
-a:visited {
-    color: firebrick;
-}
