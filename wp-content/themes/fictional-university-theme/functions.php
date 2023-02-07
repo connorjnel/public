@@ -10,5 +10,12 @@ function uni_theme_files()
     wp_enqueue_style('uni_theme_extra_style', get_theme_file_uri('/build/index.css'));
 }
 
+// Theme setup, generate page titles
+function uni_features()
+{
+    add_theme_support('title-tag');
+}
+
 // Fire/Call functions
 add_action('wp_enqueue_scripts', 'uni_theme_files');
+add_action('after_setup_theme', 'uni_features');
