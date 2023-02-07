@@ -1,4 +1,4 @@
-<!-- Main Template -->
+<!-- Single Page Template -->
 
 <?php 
 
@@ -6,13 +6,12 @@
 
     while(have_posts()) {
         the_post(); ?>
-        <a href="<?php the_permalink()?>"><h2><?php the_title(); ?> </h2></a>
+        <h2><?php the_title(); ?> </h2>
         <p><?php the_content(); ?></p>
         <small><?php the_author(); ?></small>
-        <hr>
         <?php
     }
 
     get_footer();
-
+    
 ?>

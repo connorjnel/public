@@ -1,4 +1,8 @@
+<!-- Single Post Template -->
+
 <?php 
+
+    get_header(); 
 
     while(have_posts()) {
         the_post(); ?>
@@ -7,5 +11,7 @@
         <small><?php the_author(); ?></small>
         <?php
     }
+
+    get_footer();
 
 ?>
