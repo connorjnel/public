@@ -21,6 +21,6 @@ function uni_features()
     register_nav_menu('footerMenu2', 'Footer Menu 2');
 }
 
-// Fire/Call functions
+// Actions/Filters
 add_action('wp_enqueue_scripts', 'uni_theme_files');
 add_action('after_setup_theme', 'uni_features');
