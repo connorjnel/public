@@ -10,10 +10,15 @@ function uni_theme_files()
     wp_enqueue_style('uni_theme_extra_style', get_theme_file_uri('/build/index.css'));
 }
 
-// Theme setup, generate page titles
+// Theme setup, generate page titles, register menu
 function uni_features()
 {
+    // Allows generation of page titles in head
     add_theme_support('title-tag');
+    // Register menu locations, lets it be edited in WP backend
+    register_nav_menu('headerMenuLocation', 'Header Main Menu');
+    register_nav_menu('footerMenu1', 'Footer Menu 1');
+    register_nav_menu('footerMenu2', 'Footer Menu 2');
 }
 
 // Fire/Call functions

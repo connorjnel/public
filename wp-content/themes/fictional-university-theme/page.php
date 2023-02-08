@@ -22,7 +22,7 @@ while (have_posts()) {
 
         <?php
 
-        // Check if current page has a parent page
+        // Get pages parent ID if it has one
         $hasParent = wp_get_post_parent_id(get_the_ID());
 
         if ($hasParent == True) { ?>
@@ -36,25 +36,36 @@ while (have_posts()) {
         <?php }
         ?>
 
+        <?php
+        $testArray = get_pages(array(
+            'child_of' => get_the_ID()
+        ));
 
-        <div class="page-links">
-            <h2 class="page-links__title"><a href="<?php echo get_permalink($hasParent) ?>"><?php echo get_the_title($hasParent) ?></a></h2>
-            <ul class="min-list">
-                <?php
+        if ($hasParent or $testArray) { ?>
+            <div class="page-links">
+                <h2 class="page-links__title"><a href="<?php echo get_permalink($hasParent) ?>"><?php echo get_the_title($hasParent) ?></a></h2>
+                <ul class="min-list">
+                    <?php
 
-                if ($hasParent == True) {
-                    $findChildrenOf = $hasParent;
-                } else {
-                    $findChildrenOf = get_the_ID();
-                }
+                    if ($hasParent == True) {
+                        $findChildrenOf = $hasParent;
+                    } else {
+                        $findChildrenOf = get_the_ID();
+                    }
 
-                wp_list_pages(array(
-                    'title_li' => NULL,
-                    'child_of' => $findChildrenOf,
-                ));
-                ?>
-            </ul>
-        </div>
+                    wp_list_pages(array(
+                        'title_li' => NULL,
+                        'child_of' => $findChildrenOf,
+                        'sort_column' => 'menu_order'
+                    ));
+                    ?>
+                </ul>
+            </div>
+
+        <?php }
+        ?>
+
+
 
         <div class="generic-content">
             <?php the_content() ?>
