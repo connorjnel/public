@@ -27,7 +27,27 @@ function custom_excerpt_length($length)
     return 50;
 }
 
+// Tweak default query for events archive page
+function uni_adjust_queries($query)
+{
+    $today = date('Ymd');
+    if (!is_admin() and is_post_type_archive('event') and $query->is_main_query()) {
+        $query->set('meta_key', 'event_date');
+        $query->set('orderby', 'meta_value_num');
+        $query->set('order', 'ASC');
+        $query->set('meta_query', array(
+            array(
+                'key' => 'event_date',
+                'compare' => '>=',
+                'value' => $today,
+                'type' => 'numeric',
+            )
+        ));
+    }
+}
+
 // Actions/Filters
 add_action('wp_enqueue_scripts', 'uni_theme_files');
 add_action('after_setup_theme', 'uni_features');
 add_filter('excerpt_length', 'custom_excerpt_length', 999);
+add_action('pre_get_posts', 'uni_adjust_queries');
