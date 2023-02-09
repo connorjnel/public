@@ -15,12 +15,13 @@ function uni_post_types()
             'slug' => 'events',
         ),
         'menu_icon' => 'dashicons-calendar-alt',
+        'menu_position' => 5,
         'labels' => array(
             'name' => 'Events',
             'add_new_item' => 'Add New Event',
             'edit_item' => 'Edit Event',
             'all_items' => 'All Events',
-            'singular_name' => 'Name',
+            'singular_name' => 'Event',
         )
     ));
 }
