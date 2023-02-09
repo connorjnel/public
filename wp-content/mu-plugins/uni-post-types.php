@@ -8,6 +8,9 @@ function uni_post_types()
         'public' => TRUE,
         'show_in_rest' => TRUE,
         'has_archive' => TRUE,
+        'supports' => array(
+            'title', 'editor', 'excerpt',
+        ),
         'rewrite' => array(
             'slug' => 'events',
         ),
