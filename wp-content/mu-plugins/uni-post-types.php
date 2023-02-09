@@ -7,6 +7,10 @@ function uni_post_types()
     register_post_type('event', array(
         'public' => TRUE,
         'show_in_rest' => TRUE,
+        'has_archive' => TRUE,
+        'rewrite' => array(
+            'slug' => 'events',
+        ),
         'menu_icon' => 'dashicons-calendar-alt',
         'labels' => array(
             'name' => 'Events',
