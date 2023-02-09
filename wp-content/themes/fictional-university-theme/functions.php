@@ -21,6 +21,13 @@ function uni_features()
     register_nav_menu('footerMenu2', 'Footer Menu 2');
 }
 
+// Control excerpt length
+function custom_excerpt_length($length)
+{
+    return 50;
+}
+
 // Actions/Filters
 add_action('wp_enqueue_scripts', 'uni_theme_files');
 add_action('after_setup_theme', 'uni_features');
+add_filter('excerpt_length', 'custom_excerpt_length', 999);

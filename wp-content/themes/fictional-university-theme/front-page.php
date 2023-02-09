@@ -44,7 +44,7 @@
             <h2 class="headline headline--small-plus t-center">From Our Blogs</h2>
 
             <?php
-
+            // Custom loop for most recent blog posts
             $homepagePosts = new WP_Query(array(
                 'posts_per_page' => 2,
             ));
