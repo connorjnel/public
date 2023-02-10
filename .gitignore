@@ -1,6 +1,7 @@
 # Ignore generic wp files and default theme
 wp-content/themes/twentytwentythree
 wp-content/plugins/advanced-custom-fields
+wp-content/plugins/classic-editor
 wp-admin/
 wp-includes/
 .htaccess
