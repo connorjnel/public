@@ -21,7 +21,7 @@ function uni_features()
     register_nav_menu('footerMenu2', 'Footer Menu 2');
 }
 
-// Control excerpt length
+// Control excerpt length - better to use echo wp_trim_words(get_the_content(), 14);
 function custom_excerpt_length($length)
 {
     return 50;
