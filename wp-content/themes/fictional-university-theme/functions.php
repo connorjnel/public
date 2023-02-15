@@ -27,7 +27,7 @@ function custom_excerpt_length($length)
     return 50;
 }
 
-// Modify default query for events archive page
+// Modify default query for events archive page to only show upcoming events
 function uni_adjust_queries($query)
 {
     $today = date('Ymd');
