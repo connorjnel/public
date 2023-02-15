@@ -1,30 +1,42 @@
 <?php
 
-
-// Custom post type
-function uni_post_types()
+function university_post_types()
 {
+    // Event Post Type
     register_post_type('event', array(
-        'public' => TRUE,
-        'show_in_rest' => TRUE,
-        'has_archive' => TRUE,
-        'taxonomies' => array('post_tag'),
-        'supports' => array(
-            'title', 'editor', 'excerpt',
-        ),
-        'rewrite' => array(
-            'slug' => 'events',
-        ),
-        'menu_icon' => 'dashicons-calendar-alt',
-        'menu_position' => 5,
+        'show_in_rest' => true,
+        'supports' => array('title', 'editor', 'excerpt'),
+        'rewrite' => array('slug' => 'events'),
+        'has_archive' => true,
+        'public' => true,
         'labels' => array(
             'name' => 'Events',
             'add_new_item' => 'Add New Event',
             'edit_item' => 'Edit Event',
             'all_items' => 'All Events',
-            'singular_name' => 'Event',
-        )
+            'singular_name' => 'Event'
+        ),
+        'menu_icon' => 'dashicons-calendar',
+        'menu_position' => 5,
+    ));
+
+    // Program Post Type
+    register_post_type('program', array(
+        'show_in_rest' => true,
+        'supports' => array('title', 'editor'),
+        'rewrite' => array('slug' => 'programs'),
+        'has_archive' => true,
+        'public' => true,
+        'labels' => array(
+            'name' => 'Programs',
+            'add_new_item' => 'Add New Program',
+            'edit_item' => 'Edit Program',
+            'all_items' => 'All Programs',
+            'singular_name' => 'Program'
+        ),
+        'menu_icon' => 'dashicons-awards',
+        'menu_position' => 6,
     ));
 }
 
-add_action('init', 'uni_post_types');
+add_action('init', 'university_post_types');
