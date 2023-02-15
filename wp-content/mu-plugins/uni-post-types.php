@@ -8,6 +8,7 @@ function uni_post_types()
         'public' => TRUE,
         'show_in_rest' => TRUE,
         'has_archive' => TRUE,
+        'taxonomies' => array('post_tag'),
         'supports' => array(
             'title', 'editor', 'excerpt',
         ),
