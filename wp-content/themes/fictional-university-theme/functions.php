@@ -54,7 +54,7 @@ function uni_adjust_queries($query)
     }
 }
 
-// Actions/Filters
+// Actions/Filters/Hooks
 add_action('wp_enqueue_scripts', 'uni_theme_files');
 add_action('after_setup_theme', 'uni_features');
 add_filter('excerpt_length', 'custom_excerpt_length', 999);
