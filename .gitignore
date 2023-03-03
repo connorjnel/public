@@ -2,7 +2,7 @@
 wp-content/themes/twentytwentythree
 wp-content/plugins/advanced-custom-fields
 wp-content/plugins/classic-editor
-wp-content/plugins/regenerate-thumnbnails
+wp-content/plugins/regenerate-thumbnails
 wp-admin/
 wp-includes/
 .htaccess
