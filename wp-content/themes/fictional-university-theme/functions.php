@@ -1,8 +1,15 @@
 <?php
 
-function pageBanner()
+function pageBanner($args)
 {
-    // PHP logic will live here
+    if (!$args['title']) {
+        $args['title'] = get_the_title();
+    }
+
+    if (!$args['subtitle']) {
+        $args['subtitle'] = get_field('page_banner_subtitle');
+    }
+
 ?>
 
     <div class="page-banner">
@@ -11,9 +18,9 @@ function pageBanner()
             echo $pageBannerImage['sizes']['pageBanner']; ?>);">
         </div>
         <div class="page-banner__content container container--narrow">
-            <h1 class="page-banner__title"><?php the_title() ?></h1>
+            <h1 class="page-banner__title"><?php echo $args['title']; ?></h1>
             <div class="page-banner__intro">
-                <p><? the_field('page_banner_subtitle'); ?></p>
+                <p><? echo $args['subtitle']; ?></p>
             </div>
         </div>
     </div>
