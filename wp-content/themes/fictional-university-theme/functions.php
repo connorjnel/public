@@ -15,6 +15,8 @@ function uni_features()
 {
     // Allows generation of page titles in head
     add_theme_support('title-tag');
+    // Allow featured images
+    add_theme_support('post-thumbnails');
     // Register menu locations, lets it be edited in WP backend
     register_nav_menu('headerMenuLocation', 'Header Main Menu');
     register_nav_menu('footerMenu1', 'Footer Menu 1');
