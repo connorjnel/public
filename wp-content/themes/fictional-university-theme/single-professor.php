@@ -22,7 +22,14 @@ while (have_posts()) {
 
         <div class="post-item">
             <div class="generic-content">
-                <p><?php the_content(); ?></p>
+                <div class="row group">
+                    <div class="one-third">
+                        <?php the_post_thumbnail(); ?>
+                    </div>
+                    <div class="two-thirds">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
             </div>
 
             <?php

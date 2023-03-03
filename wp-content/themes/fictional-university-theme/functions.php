@@ -17,6 +17,9 @@ function uni_features()
     add_theme_support('title-tag');
     // Allow featured images
     add_theme_support('post-thumbnails');
+    // Add custom thumbail sizes
+    add_image_size('professorLandscape', 400, 260, true);
+    add_image_size('professorPortrait', 480, 650, true);
     // Register menu locations, lets it be edited in WP backend
     register_nav_menu('headerMenuLocation', 'Header Main Menu');
     register_nav_menu('footerMenu1', 'Footer Menu 1');
