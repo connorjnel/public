@@ -199,11 +199,14 @@ __webpack_require__.r(__webpack_exports__);
 class Search {
   // 1. describe and create/initiate our object
   constructor() {
+    this.resultsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#search-overlay__results');
     this.openButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.js-search-trigger');
     this.closeButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.search-overlay__close');
     this.searchOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.search-overlay');
     this.searchField = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#search-term');
     this.overlayStatus = false;
+    this.isSpinnerVisible = false;
+    this.previousValue;
     this.events();
     this.typingTimer;
   }
@@ -213,7 +216,7 @@ class Search {
     this.openButton.on('click', this.openOverlay.bind(this));
     this.closeButton.on('click', this.closeOverlay.bind(this));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('keydown', this.keyPressDispatcher.bind(this));
-    this.searchField.on('keydown', this.typingLogic.bind(this));
+    this.searchField.on('keyup', this.typingLogic.bind(this));
   }
 
   // 3. methods (function, action...)
@@ -228,17 +231,31 @@ class Search {
     this.overlayStatus = false;
   }
   keyPressDispatcher(event) {
-    if (event.key === 's' && this.overlayStatus === false) {
+    if (event.key === 's' && this.overlayStatus === false && !jquery__WEBPACK_IMPORTED_MODULE_0___default()('input,text').is(':focus')) {
       this.openOverlay();
     } else if (event.key === 'Escape' && this.overlayStatus === true) {
       this.closeOverlay();
     }
   }
   typingLogic() {
-    clearTimeout(this.typingTimer);
-    this.typingTimer = setTimeout(function () {
-      console.log('This is a timeout test');
-    }, 2000);
+    if (this.searchField.val() != this.previousValue) {
+      clearTimeout(this.typingTimer);
+      if (this.searchField.val()) {
+        if (!this.isSpinnerVisible) {
+          this.resultsDiv.html('<div class="spinner-loader"></div>');
+          this.isSpinnerVisible = true;
+        }
+        this.typingTimer = setTimeout(this.getResults.bind(this), 2000);
+      } else {
+        this.resultsDiv.html('');
+        this.isSpinnerVisible = false;
+      }
+    }
+    this.previousValue = this.searchField.val();
+  }
+  getResults() {
+    this.resultsDiv.html('Imagine real search results here');
+    this.isSpinnerVisible = false;
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
