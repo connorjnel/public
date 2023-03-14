@@ -255,13 +255,14 @@ class Search {
   }
   getResults() {
     // Jquery fetch method
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(`//uni.local/wp-json/wp/v2/posts?search=${this.searchField.val()}`, data => {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(`/wp-json/wp/v2/posts?search=${this.searchField.val()}`, data => {
       this.resultsDiv.html(`
             <h2 class="search-overlay__section-title">General Information</h2>
-            <ul class="link-list min-list">
-            <li><a href="${data[0].link}">${data[0].title.rendered}</a></li>
-            </ul>
+            ${data.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
+                ${data.map(result => `<li><a href="${result.link}">${result.title.rendered}</a></li>`).join('')}
+            ${data.length ? '</ul>' : ''}
             `);
+      this.isSpinnerVisible = false;
     });
   }
 }
