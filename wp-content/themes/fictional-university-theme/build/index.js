@@ -256,20 +256,40 @@ class Search {
     }
     this.previousValue = this.searchField.val();
   }
-  getResults() {
-    // Jquery fetch method
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`, posts => {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`, pages => {
-        let combinedResults = posts.concat(pages);
-        this.resultsDiv.html(`
+
+  // getResults() {
+  // 	// Revised fetch
+
+  // 	// Jquery fetch method
+  // 	$.getJSON(universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`, (posts) => {
+  // 		$.getJSON(universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`, (pages) => {
+  // 			let combinedResults = posts.concat(pages);
+  // 			this.resultsDiv.html(`
+  //         <h2 class="search-overlay__section-title">General Information</h2>
+  //         ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
+  //             ${combinedResults.map((result) => `<li><a href="${result.link}">${result.title.rendered}</a></li>`).join('')}
+  //         ${combinedResults.length ? '</ul>' : ''}
+  //         `);
+  // 			this.isSpinnerVisible = false;
+  // 		});
+  // 	});
+  // }
+
+  async getResults() {
+    let postAPI = universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`;
+    let pageAPI = universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`;
+    let responsePosts = await fetch(postAPI);
+    let posts = await responsePosts.json();
+    let responsePages = await fetch(pageAPI);
+    let pages = await responsePages.json();
+    let combinedResults = posts.concat(pages);
+    this.resultsDiv.html(`
             <h2 class="search-overlay__section-title">General Information</h2>
             ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
                 ${combinedResults.map(result => `<li><a href="${result.link}">${result.title.rendered}</a></li>`).join('')}
             ${combinedResults.length ? '</ul>' : ''}
             `);
-        this.isSpinnerVisible = false;
-      });
-    });
+    this.isSpinnerVisible = false;
   }
   addSearchHTML() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').append(`
