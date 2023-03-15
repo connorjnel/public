@@ -101,6 +101,16 @@ function uni_adjust_queries($query)
     }
 }
 
+// Customize REST API
+function university_custom_rest()
+{
+    register_rest_field('post', 'authorName', array(
+        'get_callback' => function () {
+            return get_the_author();
+        }
+    ));
+}
+
 // Add API key for ACF Google Maps -  Disabled
 // function uniMapKey($api)
 // {
@@ -115,3 +125,5 @@ add_filter('excerpt_length', 'custom_excerpt_length', 999);
 add_action('pre_get_posts', 'uni_adjust_queries');
 // Disabled due to not having API key
 // add_filter('acf/fields/google_map/api', 'uniMapKey'); 
+// Customize REST API
+add_action('rest_api_init', 'university_custom_rest');

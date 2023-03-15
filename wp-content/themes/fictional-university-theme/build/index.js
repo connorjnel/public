@@ -276,16 +276,19 @@ class Search {
   async getResults() {
     let postAPI = universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`;
     let pageAPI = universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`;
+    let eventAPI = universityData.root_url + `/wp-json/wp/v2/event?search=${this.searchField.val()}`;
     try {
       let responsePosts = await fetch(postAPI);
       let posts = await responsePosts.json();
       let responsePages = await fetch(pageAPI);
       let pages = await responsePages.json();
-      let combinedResults = posts.concat(pages);
+      let responseEvents = await fetch(eventAPI);
+      let events = await responseEvents.json();
+      let combinedResults = posts.concat(pages, events);
       this.resultsDiv.html(`
             <h2 class="search-overlay__section-title">General Information</h2>
             ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
-                ${combinedResults.map(result => `<li><a href="${result.link}">${result.title.rendered}</a></li>`).join('')}
+            ${combinedResults.map(result => `<li><a href="${result.link}">${result.title.rendered}</a>${result.type === 'post' ? ` by ${result.authorName}` : ''}</li>`).join('')}
             ${combinedResults.length ? '</ul>' : ''}
             `);
       this.isSpinnerVisible = false;
