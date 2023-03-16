@@ -59,7 +59,7 @@ function university_post_types()
     register_post_type('campus', array(
         'show_in_rest' => true,
         'supports' => array('title', 'editor', 'excerpt'),
-        'rewrite' => array('slug' => 'campuss'),
+        'rewrite' => array('slug' => 'campuses'),
         'has_archive' => true,
         'public' => true,
         'labels' => array(
