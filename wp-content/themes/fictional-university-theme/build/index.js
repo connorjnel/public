@@ -277,6 +277,7 @@ class Search {
     let postAPI = universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`;
     let pageAPI = universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`;
     let eventAPI = universityData.root_url + `/wp-json/wp/v2/event?search=${this.searchField.val()}`;
+    let professorAPI = universityData.root_url + `/wp-json/wp/v2/professor?search=${this.searchField.val()}`;
     try {
       let responsePosts = await fetch(postAPI);
       let posts = await responsePosts.json();
@@ -284,11 +285,17 @@ class Search {
       let pages = await responsePages.json();
       let responseEvents = await fetch(eventAPI);
       let events = await responseEvents.json();
-      let combinedResults = posts.concat(pages, events);
+      let responseProfessors = await fetch(professorAPI);
+      let professors = await responseProfessors.json();
+      let combinedResults = posts.concat(pages, events, professors);
       this.resultsDiv.html(`
             <h2 class="search-overlay__section-title">General Information</h2>
             ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
-            ${combinedResults.map(result => `<li><a href="${result.link}">${result.title.rendered}</a>${result.type === 'post' ? ` by ${result.authorName}` : ''}</li>`).join('')}
+            ${combinedResults.map(result => `<li>
+                                    ${result.type.charAt(0).toUpperCase() + result.type.slice(1)} - 
+                                    <a href="${result.link}">${result.title.rendered}</a>
+                                    ${result.type === 'post' ? ` by ${result.authorName}` : ''}
+                                    </li>`).join('')}
             ${combinedResults.length ? '</ul>' : ''}
             `);
       this.isSpinnerVisible = false;
