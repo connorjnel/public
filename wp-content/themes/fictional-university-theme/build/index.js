@@ -256,52 +256,38 @@ class Search {
     }
     this.previousValue = this.searchField.val();
   }
-
-  // getResults() {
-  // 	// Jquery fetch method - Rewrote to be async fetch
-  // 	$.getJSON(universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`, (posts) => {
-  // 		$.getJSON(universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`, (pages) => {
-  // 			let combinedResults = posts.concat(pages);
-  // 			this.resultsDiv.html(`
-  //         <h2 class="search-overlay__section-title">General Information</h2>
-  //         ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
-  //             ${combinedResults.map((result) => `<li><a href="${result.link}">${result.title.rendered}</a></li>`).join('')}
-  //         ${combinedResults.length ? '</ul>' : ''}
-  //         `);
-  // 			this.isSpinnerVisible = false;
-  // 		});
-  // 	});
-  // }
-
-  async getResults() {
-    let postAPI = universityData.root_url + `/wp-json/wp/v2/posts?search=${this.searchField.val()}`;
-    let pageAPI = universityData.root_url + `/wp-json/wp/v2/pages?search=${this.searchField.val()}`;
-    let eventAPI = universityData.root_url + `/wp-json/wp/v2/event?search=${this.searchField.val()}`;
-    let professorAPI = universityData.root_url + `/wp-json/wp/v2/professor?search=${this.searchField.val()}`;
-    try {
-      let responsePosts = await fetch(postAPI);
-      let posts = await responsePosts.json();
-      let responsePages = await fetch(pageAPI);
-      let pages = await responsePages.json();
-      let responseEvents = await fetch(eventAPI);
-      let events = await responseEvents.json();
-      let responseProfessors = await fetch(professorAPI);
-      let professors = await responseProfessors.json();
-      let combinedResults = posts.concat(pages, events, professors);
+  getResults() {
+    let searchAPI = universityData.root_url + `/wp-json/university/v1/search?term=${this.searchField.val()}`;
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(searchAPI, results => {
       this.resultsDiv.html(`
+            <div class="row">
+          <div class="one-third">
             <h2 class="search-overlay__section-title">General Information</h2>
-            ${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search</p>'}
-            ${combinedResults.map(result => `<li>
-                                    ${result.type.charAt(0).toUpperCase() + result.type.slice(1)} - 
-                                    <a href="${result.link}">${result.title.rendered}</a>
-                                    ${result.type === 'post' ? ` by ${result.authorName}` : ''}
-                                    </li>`).join('')}
-            ${combinedResults.length ? '</ul>' : ''}
-            `);
+            ${results.generalInfo.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
+              ${results.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == 'post' ? `</br>by ${item.authorName}` : ''}</li>`).join('')}
+            ${results.generalInfo.length ? '</ul>' : ''}
+          </div>
+          <div class="one-third">
+            <h2 class="search-overlay__section-title">Programs</h2>
+            ${results.programs.length ? '<ul class="link-list min-list">' : `<p>No programs match that search. <a href="${universityData.root_url}/programs">View all programs</a></p>`}
+              ${results.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+            ${results.programs.length ? '</ul>' : ''}
+
+            <h2 class="search-overlay__section-title">Professors</h2>
+
+          </div>
+          <div class="one-third">
+            <h2 class="search-overlay__section-title">Campuses</h2>
+            ${results.campuses.length ? '<ul class="link-list min-list">' : `<p>No campuses match that search. <a href="${universityData.root_url}/campuses">View all campuses</a></p>`}
+              ${results.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
+            ${results.campuses.length ? '</ul>' : ''}
+
+            <h2 class="search-overlay__section-title">Events</h2>
+          </div>
+        </div>
+      `);
       this.isSpinnerVisible = false;
-    } catch (err) {
-      this.resultsDiv.html(`<h2 class="search-overlay__section-title">Unexpected error, please try again</h2>`);
-    }
+    });
   }
   addSearchHTML() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').append(`

@@ -3,7 +3,7 @@ add_action('rest_api_init', 'university_register_search');
 
 function university_register_search()
 {
-    register_rest_route('university/v1', 'custom_search', array(
+    register_rest_route('university/v1', 'search', array(
         'methods' => WP_REST_SERVER::READABLE,
         'callback' => 'universitySearchResults'
     ));
@@ -34,6 +34,8 @@ function universitySearchResults($data)
             array_push($results['generalInfo'], array(
                 'title' => get_the_title(),
                 'permalink' => get_the_permalink(),
+                'postType' => get_post_type(),
+                'authorName' => get_the_author()
             ));
         }
 
