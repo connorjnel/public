@@ -1,5 +1,8 @@
 <?php
 
+// Add search route php
+include get_theme_file_path('inc/search-route.php');
+
 // Custom page banner and title, subtitle function
 function pageBanner($args = NULL)
 {
