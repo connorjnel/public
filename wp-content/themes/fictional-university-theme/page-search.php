@@ -1,0 +1,77 @@
+<!-- Fallback Search Page Template -->
+
+<?php
+
+get_header();
+
+while (have_posts()) {
+    the_post();
+    pageBanner(); ?>
+
+    <div class="container container--narrow page-section">
+
+        <?php
+
+        // Get pages parent ID if it has one
+        $hasParent = wp_get_post_parent_id(get_the_ID());
+
+        if ($hasParent == True) { ?>
+
+            <div class="metabox metabox--position-up metabox--with-home-link">
+                <p><a class="metabox__blog-home-link" href="<?php echo get_permalink($hasParent) ?>"><i class="fa fa-home" aria-hidden="true">
+                        </i> Back to <?php echo get_the_title($hasParent) ?></a> <span class="metabox__main"><?php the_title() ?></span>
+                </p>
+            </div>
+
+        <?php }
+        ?>
+
+        <?php
+        $testArray = get_pages(array(
+            'child_of' => get_the_ID()
+        ));
+
+        if ($hasParent or $testArray) { ?>
+            <div class="page-links">
+                <h2 class="page-links__title"><a href="<?php echo get_permalink($hasParent) ?>"><?php echo get_the_title($hasParent) ?></a></h2>
+                <ul class="min-list">
+                    <?php
+
+                    if ($hasParent == True) {
+                        $findChildrenOf = $hasParent;
+                    } else {
+                        $findChildrenOf = get_the_ID();
+                    }
+
+                    wp_list_pages(array(
+                        'title_li' => NULL,
+                        'child_of' => $findChildrenOf,
+                        'sort_column' => 'menu_order'
+                    ));
+                    ?>
+                </ul>
+            </div>
+
+        <?php }
+        ?>
+
+
+
+        <div class="generic-content">
+            <form class="search-form" action="<?php echo esc_url(site_url('/')); ?>" method="GET">
+                <label class="headline headline--medium" for="s">Perform a new search</label>
+                <div class="search-form-row">
+                    <input class="s" type="search" name="s" id="s" placeholder="What are you looking for?">
+                    <input class="search-submit" type="submit" value="Search">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+<?php
+}
+
+get_footer();
+
+?>
