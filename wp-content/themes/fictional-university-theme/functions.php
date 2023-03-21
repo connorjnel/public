@@ -121,6 +121,27 @@ function university_custom_rest()
 //     return $api;
 // };
 
+// Function to redirect subs to frontend
+function redirectSubsToFrontend()
+{
+    $ourCurrentUser = wp_get_current_user();
+
+    if (count($ourCurrentUser->roles) == 1 && $ourCurrentUser->roles[0] == 'subscriber') {
+        wp_redirect(site_url('/'));
+        exit;
+    }
+}
+
+// Function to remove admin bar for subscribers
+function no_subs_admin_bar()
+{
+    $current_user = wp_get_current_user();
+    if (count($current_user->roles) == 1 && $current_user->roles[0] == 'subscriber') {
+        add_filter('show_admin_bar', '__return_false');
+    }
+}
+
+
 // Actions/Filters/Hooks
 add_action('wp_enqueue_scripts', 'uni_theme_files');
 add_action('after_setup_theme', 'uni_features');
@@ -130,3 +151,7 @@ add_action('pre_get_posts', 'uni_adjust_queries');
 // add_filter('acf/fields/google_map/api', 'uniMapKey'); 
 // Customize REST API
 add_action('rest_api_init', 'university_custom_rest');
+// Redirect subscriber account out of admin and onto homepage
+add_action('admin_init', 'redirectSubsToFrontend');
+// Disable admin bar for subscribers
+add_action('wp_loaded', 'no_subs_admin_bar');
