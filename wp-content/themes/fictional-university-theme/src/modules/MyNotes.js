@@ -5,12 +5,13 @@ class MyNotes {
 		this.events();
 	}
 
+	// Object event listeners
 	events() {
 		$('.delete-note').on('click', this.deleteNote);
 		$('.edit-note').on('click', this.editNote);
 	}
 
-	// Methods go here
+	// Object methods
 	deleteNote(e) {
 		let thisNote = $(e.target).parents('li');
 		$.ajax({

@@ -2259,12 +2259,14 @@ class MyNotes {
   constructor() {
     this.events();
   }
+
+  // Object event listeners
   events() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.delete-note').on('click', this.deleteNote);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.edit-note').on('click', this.editNote);
   }
 
-  // Methods go here
+  // Object methods
   deleteNote(e) {
     let thisNote = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parents('li');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
