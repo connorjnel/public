@@ -20,6 +20,13 @@ while (have_posts()) {
 
     <div class="container container--narrow page-section">
 
+        <div class="create-note">
+            <h2 class="headline headline--medium">Create New Note</h2>
+            <input class="new-note-title" placeholder="Title" type="text">
+            <textarea class="new-note-body" placeholder="Your Note Here..."></textarea>
+            <span class="submit-note">Create Note</span>
+        </div>
+
         <ul class="min-list link-list" id="my-notes">
             <?php $userNotes = new WP_Query(array(
                 'post_type' => 'note',
